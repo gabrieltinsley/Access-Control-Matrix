@@ -78,15 +78,7 @@ def test_cases():
     revoke_right_secure('Eve', 'Server1', 'execute')  # Failure if 'Eve' lacks 'execute' on 'Server1'
 
 # Part 3
-def simulate_unauthorized_access():
-    attempts = [
-        ("Alice", "File1", "execute"),
-        ("Bob", "Database", "write"),
-        ("Charlie", "Server1", "read"),
-        ("Eve", "Printer", "execute"),
-        ("Mallory", "File2", "own")
-    ]
-    for subject, obj, right in attempts:
+def simulate_unauthorized_access(subject, obj, right):
         if subject in ACM and obj in ACM[subject]:
             if right not in ACM[subject][obj]:
                 logging.info(f"DENIED: {subject} tried to {right} {obj} but lacks permission.")
@@ -94,16 +86,11 @@ def simulate_unauthorized_access():
             else:
                 logging.info(f"ALLOWED: {subject} accessed {obj} with {right}.")
                 print(f"ALLOWED: {subject} accessed {obj} with {right}.")
+        else:
+            logging.info("FAILURE: Invalid subject or object.")
+            print("Invalid subject or object.")
 
-def simulate_privilege_escalation():
-    attempts2 = [
-        ("Alice", "Server1", "own"), 
-        ("Eve", "Printer", "own"), 
-        ("Charlie", "Database", "own"),
-        ("Bob", "File1", "own"),
-        ("Mallory", "File2", "own")
-    ]
-    for subject, obj, right in attempts2:
+def simulate_privilege_escalation(subject, obj, right):
         if subject in ACM and obj in ACM[subject]:
             if "own" not in ACM[subject][obj]:
                 logging.info(f"SECURITY ALERT: {subject} attempted to escalate privileges on {obj}.")
@@ -112,14 +99,17 @@ def simulate_privilege_escalation():
                 ACM[subject][obj].append(right)
                 logging.info(f"SUCCESS: {subject} now owns {obj}.")
                 print(f"SUCCESS: {subject} now owns {obj}.")
+        else:
+            logging.info("FAILURE: Invalid subject or object.")
+            print("Invalid subject or object.")
 
 # User menu for command line arguments
 def user_menu():
     while True:
         print("\nAccess Control Menu:")
-        print("1. Grant Right")
-        print("2. Revoke Right")
-        print("3. Display ACM")
+        print("1. Display ACM")
+        print("2. Grant Right")
+        print("3. Revoke Right")
         print("4. Run Test Cases")
         print("5. Simulate unauthorized access")
         print("6. Simulate privilege escalation")
@@ -127,25 +117,31 @@ def user_menu():
         choice = input("Enter choice: ")
 
         if choice == '1':
+            display_acm()
+        elif choice == '2':
             subject = input("Enter subject: ")
             obj = input("Enter object: ")
             right = input("Enter right to grant: ")
             grant_right_secure(subject, obj, right)
-        elif choice == '2':
+        elif choice == '3':
             subject = input("Enter subject: ")
             obj = input("Enter object: ")
             right = input("Enter right to revoke: ")
             revoke_right_secure(subject, obj, right)
-        elif choice == '3':
-            display_acm()
         elif choice == '4':
             test_cases()
         elif choice == '5':
-            print(f"Simulating unauthorized access: \n")
-            simulate_unauthorized_access()
+            subject = input("Enter subject: ")
+            obj = input("Enter object: ")
+            right = input("Enter right to access: ")
+            print(f"Simulating unauthorized access...\n")
+            simulate_unauthorized_access(subject, obj, right)
         elif choice == '6':
-            print(f"Simulating privelege escalation: \n")
-            simulate_privilege_escalation()
+            subject = input("Enter subject: ")
+            obj = input("Enter object: ")
+            right = input("Enter right to escalate: ")
+            print(f"Simulating privilege escalation...\n")
+            simulate_privilege_escalation(subject, obj, right)
         elif choice == '7':
             print("Exiting...")
             break

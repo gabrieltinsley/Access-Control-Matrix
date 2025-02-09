@@ -38,3 +38,18 @@
 2025-02-08 18:29:02,545 - ALLOWED: Bob accessed Database with write.
 2025-02-08 18:29:02,546 - ALLOWED: Eve accessed Printer with execute.
 2025-02-08 18:29:02,547 - ALLOWED: Mallory accessed File2 with own.
+2025-02-08 18:32:36,529 - FAILURE: Charlie lacks 'own' rights on Server1.
+2025-02-08 18:33:02,563 - SUCCESS: Revoked 'read' from Charlie for Server1.
+2025-02-08 18:33:28,028 - FAILURE: 'execute' already exists for Charlie on File1.
+2025-02-08 18:33:28,029 - FAILURE: Invalid subject or object.
+2025-02-08 18:33:28,029 - SUCCESS: Revoked 'read' from Bob for File2.
+2025-02-08 18:33:28,029 - SUCCESS: Revoked 'execute' from Eve for Server1.
+2025-02-08 18:33:41,479 - ALLOWED: Alice accessed File1 with execute.
+2025-02-08 18:33:41,480 - DENIED: Bob tried to write Database but lacks permission.
+2025-02-08 18:33:41,480 - DENIED: Charlie tried to read Server1 but lacks permission.
+2025-02-08 18:33:52,655 - SECURITY ALERT: Alice attempted to escalate privileges on Server1.
+2025-02-08 18:33:52,655 - SUCCESS: Charlie now owns Database.
+2025-02-08 18:33:52,655 - SUCCESS: Bob now owns File1.
+2025-02-08 18:47:14,813 - DENIED: Charlie tried to read Printer but lacks permission.
+2025-02-08 18:49:24,788 - DENIED: Charlie tried to write Printer but lacks permission.
+2025-02-08 18:50:07,707 - SECURITY ALERT: Alice attempted to escalate privileges on Printer.
