@@ -1,12 +1,14 @@
 import random
 import logging
+
 # @author Gabriel Tinsley
 # Hands-On Lab 1 CS331
-# Part 1
-# Configure logging
+
+# Part 1: Initialize Access Control Matrix (ACM)
+# Configure logging to track operations
 logging.basicConfig(filename='acm_test_results.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
-# Initialize ACM
+# Create an empty ACM
 ACM = {}
 
 # Predefined pools of subjects, objects, and rights
@@ -14,20 +16,20 @@ subjects_pool = ["Alice", "Bob", "Charlie", "Eve", "Mallory"]
 objects_pool = ["File1", "File2", "Printer", "Server1", "Database"]
 rights_pool = ["read", "write", "execute", "own"]
 
-# Select at least 4 subjects and 4 objects and 3 rights
+# Select at least 4 subjects and 4 objects
 subjects = random.sample(subjects_pool, 4)
 objects = random.sample(objects_pool, 4)
 
+# Assign random rights (at least 3) to each subject-object pair
 for subject in subjects:
     ACM[subject] = {}
     for obj in objects:
         assigned_rights = random.sample(rights_pool, 3)
         ACM[subject][obj] = assigned_rights
 
-# Display ACM table
+# Funcation to display ACM
 def display_acm():
     print("Access Control Matrix:")
-    print(" ".ljust(25), end="")
     for obj in objects:
         print(obj.ljust(25), end="")
     print()
@@ -39,11 +41,12 @@ def display_acm():
         print()
     print("===================================")
 
-# Part 2
+# Part 2: Securely Grant and Revoke Rights
+# Function to grant a right only if the subject owns the object
 def grant_right_secure(subject, obj, right):
     if subject in ACM and obj in ACM[subject]:
         if right not in ACM[subject][obj]:
-            if "own" in ACM[subject][obj]:
+            if "own" in ACM[subject][obj]: # Ownership check
                 ACM[subject][obj].append(right)
                 log_operation(subject, obj, f"Grant {right}", "SUCCESS")
                 print(f"Right '{right}' assigned to {subject} for {obj}.")
@@ -57,6 +60,7 @@ def grant_right_secure(subject, obj, right):
         log_operation(subject, obj, f"Grant {right}", "DENIED - invalid subject or object")
         print("Invalid subject or object.")
 
+# Function to revoke a right from a subject for a specific object
 def revoke_right_secure(subject, obj, right):
     if subject in ACM and obj in ACM[subject]:
         if right in ACM[subject][obj]:
@@ -70,6 +74,7 @@ def revoke_right_secure(subject, obj, right):
         log_operation(subject, obj, f"Revoke {right}", "FAILURE - invalid subject or object")
         print("Invalid subject or object.")
 
+# Function for test cases to Grant and Revoke rights
 def test_cases():
     print("Running Test Cases...")
     grant_right_secure('Alice', 'File1', 'execute')  # Success if 'Alice' owns 'File1'
@@ -77,7 +82,8 @@ def test_cases():
     revoke_right_secure('Alice', 'File1', 'read')  # Success if 'Alice' has 'read' on 'File1'
     revoke_right_secure('Charlie', 'Server1', 'execute')  # Failure if 'Charlie' lacks 'execute' on 'Server1'
 
-# Part 3
+# Part 3: Security Testing Functions
+# Function to simulate unauthorized access attempts
 def simulate_unauthorized_access(subject, obj, right):
         if subject in ACM and obj in ACM[subject]:
             if right not in ACM[subject][obj]:
@@ -90,6 +96,7 @@ def simulate_unauthorized_access(subject, obj, right):
             log_operation(subject, obj, right, "FAILURE - invalid subject or object")
             print("Invalid subject or object.")
 
+# Function to simulate privilege escalation attempts
 def simulate_privilege_escalation(subject, obj, right):
         if subject in ACM and obj in ACM[subject]:
             if "own" not in ACM[subject][obj]:
@@ -103,7 +110,8 @@ def simulate_privilege_escalation(subject, obj, right):
             log_operation(subject, obj, right, "FAILURE - invalid subject or object")
             print("Invalid subject or object.")
 
-# Part 4
+# Part 4: Logging operations format
+# Function to log access attempts
 def log_operation(subject, obj, action, result):
     logging.info(f" | {subject} | {obj} | {action} | {result}")
 

@@ -25,3 +25,11 @@
 2025-02-08 21:02:14,369 -  | Mallory | File2 | Privilege Escalation Attempt | SECURITY ALERT
 2025-02-08 21:02:46,952 -  | Charlie | Printer | own | FAILURE - invalid subject or object
 2025-02-08 21:11:07,079 -  | Eve | Printer | Grant own | DENIED - lacks own right
+2025-02-08 23:53:50,821 -  | Charlie | Server1 | Grant own | DENIED - lacks own right
+2025-02-08 23:54:14,109 -  | Charlie | Database | Revoke own | SUCCESS
+2025-02-08 23:54:27,357 -  | Alice | File1 | Grant execute | DENIED - invalid subject or object
+2025-02-08 23:54:27,358 -  | Eve | Database | Grant own | DENIED - already exists
+2025-02-08 23:54:27,358 -  | Alice | File1 | Revoke read | FAILURE - invalid subject or object
+2025-02-08 23:54:27,358 -  | Charlie | Server1 | Revoke execute | SUCCESS
+2025-02-08 23:54:59,621 -  | Charlie | Database | execute | DENIED - Charlie tried to execute Database but lacks permission.
+2025-02-08 23:55:29,494 -  | Charlie | Database | Privilege Escalation Attempt | SECURITY ALERT
