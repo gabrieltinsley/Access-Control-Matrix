@@ -45,63 +45,67 @@ def grant_right_secure(subject, obj, right):
         if right not in ACM[subject][obj]:
             if "own" in ACM[subject][obj]:
                 ACM[subject][obj].append(right)
-                logging.info(f"SUCCESS: Granted '{right}' to {subject} for {obj}.")
+                log_operation(subject, obj, f"Grant {right}", "SUCCESS")
                 print(f"Right '{right}' assigned to {subject} for {obj}.")
             else:
-                logging.info(f"FAILURE: {subject} lacks 'own' rights on {obj}.")
+                log_operation(subject, obj, f"Grant {right}", "DENIED - lacks own right")
                 print(f"Subject '{subject}' does not own object '{obj}'.")
         else:
-            logging.info(f"FAILURE: '{right}' already exists for {subject} on {obj}.")
+            log_operation(subject, obj, f"Grant {right}", "DENIED - already exists")
             print(f"Right '{right}' already exists for {subject} on {obj}.")
     else:
-        logging.info("FAILURE: Invalid subject or object.")
+        log_operation(subject, obj, f"Grant {right}", "DENIED - invalid subject or object")
         print("Invalid subject or object.")
 
 def revoke_right_secure(subject, obj, right):
     if subject in ACM and obj in ACM[subject]:
         if right in ACM[subject][obj]:
             ACM[subject][obj].remove(right)
-            logging.info(f"SUCCESS: Revoked '{right}' from {subject} for {obj}.")
+            log_operation(subject, obj, f"Revoke {right}", "SUCCESS")
             print(f"Right '{right}' revoked from {subject} for {obj}.")
         else:
-            logging.info(f"FAILURE: Right '{right}' does not exist for {subject} on {obj}.")
+            log_operation(subject, obj, f"Revoke {right}", f"FAILURE - right does not exist for {subject} and {obj}")
             print(f"Right '{right}' does not exist for {subject} on {obj}.")
     else:
-        logging.info("FAILURE: Invalid subject or object.")
+        log_operation(subject, obj, f"Revoke {right}", "FAILURE - invalid subject or object")
         print("Invalid subject or object.")
 
 def test_cases():
     print("Running Test Cases...")
-    grant_right_secure('Charlie', 'File1', 'execute')  # Success if 'Charlie' owns 'File1'
-    grant_right_secure('Mallory', 'Printer', 'write')  # Failure if 'Mallory' does not own 'Printer'
-    revoke_right_secure('Bob', 'File2', 'read')  # Success if 'Bob' has 'read' on 'File2'
-    revoke_right_secure('Eve', 'Server1', 'execute')  # Failure if 'Eve' lacks 'execute' on 'Server1'
+    grant_right_secure('Alice', 'File1', 'execute')  # Success if 'Alice' owns 'File1'
+    grant_right_secure('Eve', 'Database', 'own')  # Failure if 'Mallory' does not own 'Printer'
+    revoke_right_secure('Alice', 'File1', 'read')  # Success if 'Alice' has 'read' on 'File1'
+    revoke_right_secure('Charlie', 'Server1', 'execute')  # Failure if 'Charlie' lacks 'execute' on 'Server1'
 
 # Part 3
 def simulate_unauthorized_access(subject, obj, right):
         if subject in ACM and obj in ACM[subject]:
             if right not in ACM[subject][obj]:
-                logging.info(f"DENIED: {subject} tried to {right} {obj} but lacks permission.")
+                log_operation(subject, obj, right, f"DENIED - {subject} tried to {right} {obj} but lacks permission.")
                 print(f"DENIED: {subject} tried to {right} {obj} but lacks permission.")
             else:
-                logging.info(f"ALLOWED: {subject} accessed {obj} with {right}.")
+                log_operation(subject, obj, right, f"ALLOWED - {subject} accessed {obj} with {right}.")
                 print(f"ALLOWED: {subject} accessed {obj} with {right}.")
         else:
-            logging.info("FAILURE: Invalid subject or object.")
+            log_operation(subject, obj, right, "FAILURE - invalid subject or object")
             print("Invalid subject or object.")
 
 def simulate_privilege_escalation(subject, obj, right):
         if subject in ACM and obj in ACM[subject]:
             if "own" not in ACM[subject][obj]:
-                logging.info(f"SECURITY ALERT: {subject} attempted to escalate privileges on {obj}.")
+                log_operation(subject, obj, "Privilege Escalation Attempt", "SECURITY ALERT")
                 print(f"SECURITY ALERT: {subject} attempted to escalate privileges on {obj}.")
             else:
                 ACM[subject][obj].append(right)
-                logging.info(f"SUCCESS: {subject} now owns {obj}.")
-                print(f"SUCCESS: {subject} now owns {obj}.")
+                log_operation(subject, obj, "Privilege Escalation", "SECURITY SUCCESS")
+                print(f"SECURITY SUCCESS: {subject} owns {obj} and added {right}.")
         else:
-            logging.info("FAILURE: Invalid subject or object.")
+            log_operation(subject, obj, right, "FAILURE - invalid subject or object")
             print("Invalid subject or object.")
+
+# Part 4
+def log_operation(subject, obj, action, result):
+    logging.info(f" | {subject} | {obj} | {action} | {result}")
 
 # User menu for command line arguments
 def user_menu():

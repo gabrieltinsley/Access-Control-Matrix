@@ -1,55 +1,27 @@
-2025-02-08 17:53:30,648 - SUCCESS: Granted 'execute' to Charlie for File1.
-2025-02-08 17:53:30,648 - SUCCESS: Granted 'write' to Mallory for Printer.
-2025-02-08 17:53:30,648 - SUCCESS: Revoked 'read' from Bob for File2.
-2025-02-08 17:53:30,648 - SUCCESS: Revoked 'execute' from Eve for Server1.
-2025-02-08 17:54:28,432 - SUCCESS: Granted 'q' to Charlie for File1.
-2025-02-08 17:54:57,713 - FAILURE: Invalid subject or object.
-2025-02-08 17:54:57,713 - FAILURE: 'write' already exists for Mallory on Printer.
-2025-02-08 17:54:57,713 - SUCCESS: Revoked 'read' from Bob for File2.
-2025-02-08 17:54:57,713 - FAILURE: Invalid subject or object.
-2025-02-08 18:00:58,774 - FAILURE: Invalid subject or object.
-2025-02-08 18:00:58,775 - SUCCESS: Granted 'write' to Mallory for Printer.
-2025-02-08 18:00:58,775 - FAILURE: Right 'read' does not exist for Bob on File2.
-2025-02-08 18:00:58,775 - FAILURE: Right 'execute' does not exist for Eve on Server1.
-2025-02-08 18:03:50,644 - FAILURE: Invalid subject or object.
-2025-02-08 18:03:50,646 - FAILURE: 'write' already exists for Mallory on Printer.
-2025-02-08 18:03:50,646 - FAILURE: Invalid subject or object.
-2025-02-08 18:03:50,646 - SUCCESS: Revoked 'execute' from Eve for Server1.
-2025-02-08 18:15:22,796 - ALLOWED: Alice accessed File1 with execute.
-2025-02-08 18:15:22,797 - ALLOWED: Bob accessed Database with write.
-2025-02-08 18:15:22,797 - DENIED: Eve tried to execute Printer but lacks permission.
-2025-02-08 18:15:22,797 - DENIED: Mallory tried to own File2 but lacks permission.
-2025-02-08 18:16:49,677 - ALLOWED: Alice accessed File1 with execute.
-2025-02-08 18:16:49,678 - ALLOWED: Bob accessed Database with write.
-2025-02-08 18:16:49,678 - DENIED: Mallory tried to own File2 but lacks permission.
-2025-02-08 18:18:44,283 - FAILURE: 'execute' already exists for Charlie on File1.
-2025-02-08 18:18:44,285 - FAILURE: 'write' already exists for Mallory on Printer.
-2025-02-08 18:18:44,285 - SUCCESS: Revoked 'read' from Bob for File2.
-2025-02-08 18:18:44,285 - FAILURE: Invalid subject or object.
-2025-02-08 18:25:59,334 - ALLOWED: Alice accessed File1 with execute.
-2025-02-08 18:25:59,336 - ALLOWED: Eve accessed Printer with execute.
-2025-02-08 18:25:59,336 - DENIED: Mallory tried to own File2 but lacks permission.
-2025-02-08 18:26:05,805 - SUCCESS: Eve now owns Printer.
-2025-02-08 18:26:05,806 - SUCCESS: Charlie now owns Database.
-2025-02-08 18:28:35,636 - SECURITY ALERT: Eve attempted to escalate privileges on Printer.
-2025-02-08 18:28:35,638 - SECURITY ALERT: Charlie attempted to escalate privileges on Database.
-2025-02-08 18:28:35,638 - SUCCESS: Bob now owns File1.
-2025-02-08 18:28:35,638 - SUCCESS: Mallory now owns File2.
-2025-02-08 18:29:02,545 - ALLOWED: Bob accessed Database with write.
-2025-02-08 18:29:02,546 - ALLOWED: Eve accessed Printer with execute.
-2025-02-08 18:29:02,547 - ALLOWED: Mallory accessed File2 with own.
-2025-02-08 18:32:36,529 - FAILURE: Charlie lacks 'own' rights on Server1.
-2025-02-08 18:33:02,563 - SUCCESS: Revoked 'read' from Charlie for Server1.
-2025-02-08 18:33:28,028 - FAILURE: 'execute' already exists for Charlie on File1.
-2025-02-08 18:33:28,029 - FAILURE: Invalid subject or object.
-2025-02-08 18:33:28,029 - SUCCESS: Revoked 'read' from Bob for File2.
-2025-02-08 18:33:28,029 - SUCCESS: Revoked 'execute' from Eve for Server1.
-2025-02-08 18:33:41,479 - ALLOWED: Alice accessed File1 with execute.
-2025-02-08 18:33:41,480 - DENIED: Bob tried to write Database but lacks permission.
-2025-02-08 18:33:41,480 - DENIED: Charlie tried to read Server1 but lacks permission.
-2025-02-08 18:33:52,655 - SECURITY ALERT: Alice attempted to escalate privileges on Server1.
-2025-02-08 18:33:52,655 - SUCCESS: Charlie now owns Database.
-2025-02-08 18:33:52,655 - SUCCESS: Bob now owns File1.
-2025-02-08 18:47:14,813 - DENIED: Charlie tried to read Printer but lacks permission.
-2025-02-08 18:49:24,788 - DENIED: Charlie tried to write Printer but lacks permission.
-2025-02-08 18:50:07,707 - SECURITY ALERT: Alice attempted to escalate privileges on Printer.
+2025-02-08 19:52:14,309 - SUCCESS: Granted 'execute' to Alice for File1.
+2025-02-08 19:54:05,330 - FAILURE: Right 'execute' does not exist for Charlie on Server1.
+2025-02-08 19:54:50,563 - FAILURE: Eve lacks 'own' rights on Database.
+2025-02-08 20:23:28,336 - FAILURE: 'execute' already exists for Charlie on File1.
+2025-02-08 20:23:28,341 - FAILURE: Invalid subject or object.
+2025-02-08 20:23:28,341 - FAILURE: Invalid subject or object.
+2025-02-08 20:23:28,341 - SUCCESS: Revoked 'execute' from Eve for Server1.
+2025-02-08 20:25:20,835 - DENIED: Charlie tried to write Printer but lacks permission.
+2025-02-08 20:26:21,679 - ALLOWED: Alice accessed File1 with execute.
+2025-02-08 20:26:50,951 - DENIED: Bob tried to execute Database but lacks permission.
+2025-02-08 20:27:23,409 - DENIED: Eve tried to read Server1 but lacks permission.
+2025-02-08 20:28:05,459 - ALLOWED: Charlie accessed Server1 with own.
+2025-02-08 20:28:37,207 - DENIED: Alice tried to write Database but lacks permission.
+2025-02-08 20:28:58,739 - DENIED: Bob tried to read Printer but lacks permission.
+2025-02-08 20:34:11,906 - SECURITY ALERT: Eve attempted to escalate privileges on Database.
+2025-02-08 20:37:16,475 - SECURITY SUCCESS: Bob owns File1 and added execute.
+2025-02-08 20:55:06,766 -  | Mallory | File1 | Grant execute | SUCCESS
+2025-02-08 20:56:13,355 -  | Alice | Database | Revoke execute | SUCCESS
+2025-02-08 20:59:27,380 -  | Bob | Printer | Grant own | DENIED - already exists
+2025-02-08 20:59:45,650 -  | Alice | File1 | Grant execute | SUCCESS
+2025-02-08 20:59:45,651 -  | Eve | Database | Grant own | DENIED - already exists
+2025-02-08 20:59:45,651 -  | Alice | File1 | Revoke read | SUCCESS
+2025-02-08 20:59:45,651 -  | Charlie | Server1 | Revoke execute | FAILURE - invalid subject or object
+2025-02-08 21:00:42,039 -  | Mallory | Database | own | DENIED - Mallory tried to own Database but lacks permission.
+2025-02-08 21:02:14,369 -  | Mallory | File2 | Privilege Escalation Attempt | SECURITY ALERT
+2025-02-08 21:02:46,952 -  | Charlie | Printer | own | FAILURE - invalid subject or object
+2025-02-08 21:11:07,079 -  | Eve | Printer | Grant own | DENIED - lacks own right
